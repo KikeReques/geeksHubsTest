@@ -8,16 +8,17 @@ import javax.validation.constraints.NotEmpty;
 public class ProductPurchase {
 
     @Id
+    @Column(name = "compra_producto_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @Column(name = "productoId")
-    @NotEmpty
-    private int productId;
+    @ManyToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name="producto_id")
+    private Product product;
 
-    @Column(name = "compraId")
-    @NotEmpty
-    private int orderId;
+    @ManyToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name="compra_id")
+    private Order order;
 
     @Column(name = "cantidad")
     @NotEmpty
@@ -27,28 +28,28 @@ public class ProductPurchase {
     @NotEmpty
     private float total;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getProductId() {
-        return productId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public int getAmount() {

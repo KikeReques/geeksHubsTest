@@ -2,14 +2,16 @@ package com.geekshubs.kikereques.geekshubsTest.models.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Entity
 @Table(name="categorias")
 public class Category {
 
     @Id
+    @Column(name = "categoria_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "nombre")
     @NotEmpty
@@ -19,11 +21,11 @@ public class Category {
     @NotEmpty
     private String description;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

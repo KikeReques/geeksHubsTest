@@ -9,12 +9,13 @@ import java.util.Date;
 public class Order {
 
     @Id
+    @Column(name = "compra_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @Column(name = "clienteId")
-    @NotEmpty
-    private int clientId;
+    @ManyToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name="cliente_id")
+    private Client client;
 
     @Column(name = "fecha_compra")
     @NotEmpty
@@ -28,28 +29,28 @@ public class Order {
     @NotEmpty
     private String status;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getClientId() {
-        return clientId;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public Date getBuyDate() {
+    public Date getOrderDate() {
         return orderDate;
     }
 
-    public void setBuyDate(Date buyDate) {
-        this.orderDate = buyDate;
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
     }
 
     public String getPayMethod() {

@@ -11,8 +11,9 @@ import java.util.Date;
 public class Client {
 
     @Id
+    @Column(name = "cliente_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "nombre")
     @NotEmpty
@@ -35,11 +36,11 @@ public class Client {
     @Email
     private String email;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
