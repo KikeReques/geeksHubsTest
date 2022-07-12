@@ -3,6 +3,7 @@ package com.geekshubs.kikereques.geekshubsTest.models.entity;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 
@@ -28,11 +29,11 @@ public class Client {
     private String telephoneNumber;
 
     @Column(name = "fecha_nacimiento")
-    @NotEmpty
+    @NotNull
     private Date birthDate;
 
     @Column(name = "email")
-    @NotEmpty
+    @NotNull
     @Email
     private String email;
 

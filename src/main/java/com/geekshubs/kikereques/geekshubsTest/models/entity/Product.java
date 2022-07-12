@@ -2,6 +2,7 @@ package com.geekshubs.kikereques.geekshubsTest.models.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -22,11 +23,11 @@ public class Product {
     private String name;
 
     @Column(name = "precio")
-    @NotEmpty
+    @NotNull
     private float price;
 
     @Column(name = "cantidad")
-    @NotEmpty
+    @NotNull
     private int amount;
 
     public Long getId() {

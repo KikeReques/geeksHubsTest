@@ -2,6 +2,7 @@ package com.geekshubs.kikereques.geekshubsTest.models.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -18,7 +19,7 @@ public class Order {
     private Client client;
 
     @Column(name = "fecha_compra")
-    @NotEmpty
+    @NotNull
     private Date orderDate;
 
     @Column(name = "metodo_pago")
