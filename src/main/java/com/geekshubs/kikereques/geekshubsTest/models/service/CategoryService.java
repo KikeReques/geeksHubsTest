@@ -11,7 +11,7 @@ public interface CategoryService {
 
     List<Category> list();
     Optional<Category> byId(Long id);
-    Category save(Category curso);
+    Category save(Category category);
     void delete(Long id);
 
 

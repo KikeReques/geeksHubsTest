@@ -12,18 +12,19 @@ import javax.validation.Valid;
 import java.util.*;
 
 @RestController
+@RequestMapping("/category")
 public class CategoryController {
 
     @Autowired
     private CategoryService service;
 
-    @GetMapping("/category")
+    @GetMapping
     public ResponseEntity<List<Category>> list(){
 
         return ResponseEntity.ok(service.list());
     }
 
-    @GetMapping("/category/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> detail(@PathVariable Long id){
         Optional<Category> o = service.byId(id);
 
@@ -33,7 +34,7 @@ public class CategoryController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/category")
+    @PostMapping
     public ResponseEntity<?> save(@Valid @RequestBody Category category, BindingResult result){
 
         if(result.hasErrors()){
@@ -44,7 +45,7 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryDb);
     }
 
-    @PutMapping("/category/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> edit(@Valid @RequestBody Category category, BindingResult result, @PathVariable Long id){
         if(result.hasErrors()){
             return validate(result);
@@ -60,7 +61,7 @@ public class CategoryController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/category/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         Optional<Category> o = service.byId(id);
 

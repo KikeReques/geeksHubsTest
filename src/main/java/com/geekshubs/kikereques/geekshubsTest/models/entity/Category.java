@@ -2,7 +2,6 @@ package com.geekshubs.kikereques.geekshubsTest.models.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.List;
 
 @Entity
 @Table(name="categorias")

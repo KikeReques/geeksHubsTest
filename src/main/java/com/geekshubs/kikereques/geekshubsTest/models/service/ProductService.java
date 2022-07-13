@@ -10,7 +10,7 @@ public interface ProductService {
 
     List<Product> list();
     Optional<Product> byId(Long id);
-    Product save(Product curso);
+    Product save(Product product);
     void delete(Long id);
 
 

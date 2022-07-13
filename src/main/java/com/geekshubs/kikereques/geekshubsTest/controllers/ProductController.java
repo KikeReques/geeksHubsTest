@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/product")
 public class ProductController {
 
     @Autowired
@@ -25,13 +26,13 @@ public class ProductController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/product")
+    @GetMapping
     public ResponseEntity<List<Product>> list(){
 
         return ResponseEntity.ok(service.list());
     }
 
-    @GetMapping("/product/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> detail(@PathVariable Long id){
         Optional<Product> o = service.byId(id);
 
@@ -41,7 +42,7 @@ public class ProductController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/product")
+    @PostMapping
     public ResponseEntity<?> save(@Valid @RequestBody Product product, BindingResult result){
         if(result.hasErrors()){
             return validate(result);
@@ -53,7 +54,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(productDb);
     }
 
-    @PutMapping("/product/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> edit(@Valid @RequestBody Product product, BindingResult result, @PathVariable Long id){
         if(result.hasErrors()){
             return validate(result);
@@ -73,7 +74,7 @@ public class ProductController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/product/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         Optional<Product> o = service.byId(id);
 

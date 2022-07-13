@@ -10,7 +10,7 @@ public interface OrderService {
 
     List<Order> list();
     Optional<Order> byId(Long id);
-    Order save(Order curso);
+    Order save(Order order);
     void delete(Long id);
 
 

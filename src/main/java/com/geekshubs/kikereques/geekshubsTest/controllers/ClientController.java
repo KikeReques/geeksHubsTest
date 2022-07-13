@@ -17,18 +17,19 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/client")
 public class ClientController {
 
     @Autowired
     private ClientService service;
 
-    @GetMapping("/client")
+    @GetMapping
     public ResponseEntity<List<Client>> list(){
 
         return ResponseEntity.ok(service.list());
     }
 
-    @GetMapping("/client/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> detail(@PathVariable Long id){
         Optional<Client> o = service.byId(id);
 
@@ -38,7 +39,7 @@ public class ClientController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/client")
+    @PostMapping
     public ResponseEntity<?> save(@Valid @RequestBody Client client, BindingResult result){
 
         if(result.hasErrors()){
@@ -49,7 +50,7 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.CREATED).body(clientDb);
     }
 
-    @PutMapping("/client/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> edit(@Valid @RequestBody Client client, BindingResult result, @PathVariable Long id){
         if(result.hasErrors()){
             return validate(result);
@@ -68,7 +69,7 @@ public class ClientController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/client/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         Optional<Client> o = service.byId(id);
 

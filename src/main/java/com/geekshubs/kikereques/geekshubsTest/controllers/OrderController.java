@@ -3,8 +3,10 @@ package com.geekshubs.kikereques.geekshubsTest.controllers;
 import com.geekshubs.kikereques.geekshubsTest.models.entity.Client;
 import com.geekshubs.kikereques.geekshubsTest.models.entity.Order;
 import com.geekshubs.kikereques.geekshubsTest.models.entity.Product;
+import com.geekshubs.kikereques.geekshubsTest.models.entity.ProductPurchase;
 import com.geekshubs.kikereques.geekshubsTest.models.service.ClientService;
 import com.geekshubs.kikereques.geekshubsTest.models.service.OrderService;
+import com.geekshubs.kikereques.geekshubsTest.models.service.ProductPurchaseService;
 import com.geekshubs.kikereques.geekshubsTest.models.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,12 +15,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
+@RequestMapping("/order")
 public class OrderController {
 
     @Autowired
@@ -27,13 +27,19 @@ public class OrderController {
     @Autowired
     private ClientService clientService;
 
-    @GetMapping("/order")
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private ProductPurchaseService productPurchaseService;
+
+    @GetMapping
     public ResponseEntity<List<Order>> list(){
 
         return ResponseEntity.ok(service.list());
     }
 
-    @GetMapping("/order/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> detail(@PathVariable Long id){
         Optional<Order> o = service.byId(id);
 
@@ -43,19 +49,30 @@ public class OrderController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/order")
-    public ResponseEntity<?> save(@Valid @RequestBody Order order, BindingResult result){
+    @PostMapping
+    public ResponseEntity<?> save(@RequestBody OrderAndProductPurchaseList orderAndProductPurchaseList, BindingResult result ){
         if(result.hasErrors()){
             return validate(result);
         }
-        Client clientDb = clientService.byId(order.getClient().getId()).get();
-        order.setClient(clientDb);
-        Order orderDb = service.save(order);
+        Client clientDb = clientService.byId(orderAndProductPurchaseList.order.getClient().getId()).get();
+        orderAndProductPurchaseList.order.setClient(clientDb);
+        Date orderDate = new Date();
+        orderAndProductPurchaseList.order.setOrderDate(orderDate);
+        Order orderDb = service.save(orderAndProductPurchaseList.order);
+
+        for(ProductPurchase p:orderAndProductPurchaseList.productPurchases){
+            Product product = productService.byId(p.getProduct().getId()).get();
+            p.setProduct(product);
+            p.setTotal(product.getPrice()*p.getAmount());
+            p.setOrder(orderDb);
+            productPurchaseService.save(p);
+        }
+
 
         return ResponseEntity.status(HttpStatus.CREATED).body(orderDb);
     }
 
-    @PutMapping("/order/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> edit(@Valid @RequestBody Order order, BindingResult result, @PathVariable Long id){
         if(result.hasErrors()){
             return validate(result);
@@ -74,7 +91,7 @@ public class OrderController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/order/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         Optional<Order> o = service.byId(id);
 
@@ -91,6 +108,11 @@ public class OrderController {
             errores.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
         });
         return ResponseEntity.badRequest().body(errores);
+    }
+
+    static class OrderAndProductPurchaseList {
+        public Order order;
+        public List<ProductPurchase> productPurchases;
     }
 
 }
