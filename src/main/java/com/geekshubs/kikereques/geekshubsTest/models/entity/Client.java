@@ -1,5 +1,7 @@
 package com.geekshubs.kikereques.geekshubsTest.models.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -30,6 +32,7 @@ public class Client {
 
     @Column(name = "fecha_nacimiento")
     @NotNull
+    @DateTimeFormat(pattern="dd/MM/yyyy")
     private Date birthDate;
 
     @Column(name = "email")

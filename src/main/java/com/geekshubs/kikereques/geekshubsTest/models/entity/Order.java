@@ -1,5 +1,7 @@
 package com.geekshubs.kikereques.geekshubsTest.models.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -20,6 +22,7 @@ public class Order {
 
     @Column(name = "fecha_compra")
     @NotNull
+    @DateTimeFormat(pattern="dd/MM/yyyy")
     private Date orderDate;
 
     @Column(name = "metodo_pago")
