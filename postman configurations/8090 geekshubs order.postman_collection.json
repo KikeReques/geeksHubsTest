@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "03bfa356-2ea7-43a9-9474-b1f9382567d8",
+		"name": "8090 geekshubs order",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "list all orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/order",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list order by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/order/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"order",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"order\":{\r\n      \"client\":{\r\n         \"id\":1\r\n      },\r\n      \"payMethod\":\"tarjeta\",\r\n      \"status\":\"aprobado\"\r\n   },\r\n   \"productPurchases\":[\r\n      {\r\n         \"product\":{\r\n            \"id\":1\r\n         },\r\n         \"amount\":3\r\n      },\r\n      {\r\n         \"product\":{\r\n            \"id\":2\r\n         },\r\n         \"amount\":1\r\n      },\r\n      {\r\n         \"product\":{\r\n            \"id\":3\r\n         },\r\n         \"amount\":2\r\n      }\r\n   ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8090/order",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit order",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"description\": \"Sección de productos del jardin\",\r\n        \"name\": \"Hogar\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8090/order/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"order",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete order",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/order/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"order",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
